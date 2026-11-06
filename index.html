@@ -14,7 +14,7 @@
 <header class="top"><div class="w">
   <a class="brand" href="#top"><img src="assets/logo.png" alt="Destiny Cafe logo"><span>Destiny Cafe</span></a>
   <nav>
-    <a class="hide-m" href="#winter"><span class="en">Winter Menu</span><span class="es">Menú de Invierno</span></a>
+    <a href="#winter" onclick="openFlyer(event)"><span class="en">Winter Menu</span><span class="es">Menú de Invierno</span></a>
     <a class="hide-m" href="#menu"><span class="en">Menu</span><span class="es">Menú</span></a>
     <a class="hide-m" href="#videos"><span class="en">Videos</span><span class="es">Videos</span></a>
     <a class="hide-m" href="#order"><span class="en">How to Order</span><span class="es">Cómo Ordenar</span></a>
@@ -39,14 +39,9 @@
     <div class="eyebrow"><span class="en">Winter Menu · Available to order now!</span><span class="es">Menú de Invierno · ¡Ya puede ordenar!</span></div>
     <h2><span class="en">Pre-Order Pickup Popup</span><span class="es">Recogida de Pedidos por Adelantado</span></h2>
     <div class="when"><span class="en">Tuesday, Nov 10 · 8:00 AM – 12:00 PM<br>NW Las Vegas · Farm &amp; Tenaya area</span><span class="es">Martes 10 de noviembre · 8:00 AM – 12:00 PM<br>Noroeste de Las Vegas · zona de Farm y Tenaya</span></div>
-    <ul class="items">
-      <li><span><span class="en">Sourdough Chocolate Chip Cookies</span><span class="es">Galletas de Chispas de Chocolate de Masa Madre</span><small class="en">Half dozen</small><small class="es">Media docena</small></span><b class="pr">$10</b></li>
-      <li><span><span class="en">Cinnamon Roll Focaccia</span><span class="es">Focaccia de Rollo de Canela</span><small class="en">9x13 tray</small><small class="es">Bandeja 9x13</small></span><b class="pr">$12</b></li>
-      <li><span><span class="en">Sourdough Biscuits</span><span class="es">Biscuits de Masa Madre</span><small class="en">4 count</small><small class="es">4 unidades</small></span><b class="pr">$8</b></li>
-      <li><span><span class="en">Peppermint Mocha Brownies</span><span class="es">Brownies de Moca y Menta</span><small class="en">8x8 tray $15 · Individual $4 (call or chat for singles)</small><small class="es">Bandeja 8x8 $15 · Individual $4 (llame o escríbanos para individuales)</small></span><b class="pr">$15 / $4</b></li>
-      <li><span><span class="en">Holiday Peppermint Mocha</span><span class="es">Peppermint Mocha Navideño</span><small class="en">Chocolate latte with house-made peppermint syrup · Hot 12 oz · Iced 16 oz</small><small class="es">Latte de chocolate con sirope de menta de la casa · Caliente 12 oz · Frío 16 oz</small></span><b class="pr">$6.50 / $7.50</b></li>
-    </ul>
-    <p class="note"><span class="en">Pre-order on Bakesy and select <b>11/10</b> for pickup before sellout, or call (725) 325-7583. We'll text you to confirm your order and the exact pickup spot.</span><span class="es">Ordene en Bakesy y seleccione <b>11/10</b> para recoger antes de que se agote, o llame al (725) 325-7583. Le enviaremos un texto para confirmar su pedido y el lugar exacto de recogida.</span></p>
+    <button type="button" class="flyer-btn" onclick="openFlyer(event)" aria-label="Winter Menu"><img src="assets/winter-menu-flyer-full.jpg" alt="Destiny Cafe Winter Menu: Sourdough Chocolate Chip Cookies $10, Cinnamon Roll Focaccia $12, Sourdough Biscuits $8, Peppermint Mocha Brownies $15 tray or $4 individual"></button>
+    <p class="note"><span class="en">Tap the menu to see it bigger. Holiday Peppermint Mocha: Hot 12 oz $6.50 · Iced 16 oz $7.50. Brownies also $4 individual (call or chat). We text you to confirm your order and the exact pickup spot.</span><span class="es">Toque el menú para verlo más grande. Peppermint Mocha Navideño: Caliente 12 oz $6.50 · Frío 16 oz $7.50. Brownies también a $4 individual (llame o escríbanos). Le confirmamos su pedido y el lugar exacto por texto.</span></p>
+    <a class="btn p" style="display:block;text-align:center;margin-top:10px" href="https://bakesy.shop/b/destiny-cafe-llc" target="_blank" rel="noopener"><span class="en">Pre-Order on Bakesy (Select 11/10)</span><span class="es">Ordene en Bakesy (Seleccione 11/10)</span></a>
   </div>
 </div></section>
 
@@ -92,7 +87,7 @@
 <section id="videos"><div class="w">
   <h2><span class="en">Watch Us Pour &amp; Bake</span><span class="es">En Acción · Videos</span></h2>
   <div class="reels">
-    <figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/iced-latte.jpg"><source src="assets/videos/iced-latte.mp4" type="video/mp4"></video><figcaption><span class="en">Double Shot Iced Latte with Sweet Cream</span><span class="es">Latte Frío Doble con Crema Dulce</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/vending-event.jpg"><source src="assets/videos/vending-event.mp4" type="video/mp4"></video><figcaption><span class="en">Our First Vending Event</span><span class="es">Nuestro Primer Evento de Venta</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/easter-recap.jpg"><source src="assets/videos/easter-recap.mp4" type="video/mp4"></video><figcaption><span class="en">Easter 2026 Recap</span><span class="es">Resumen de Pascua 2026</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/bakery-menu.jpg"><source src="assets/videos/bakery-menu.mp4" type="video/mp4"></video><figcaption><span class="en">Our Bakery Menu</span><span class="es">Nuestro Menú de Panadería</span></figcaption></figure>
+    <figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/nurses-week-owners.jpg"><source src="assets/videos/nurses-week-owners.mp4" type="video/mp4"></video><figcaption><span class="en">Meet Us · Nurses Week Popup</span><span class="es">Conózcanos · Evento Semana de la Enfermería</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/iced-latte.jpg"><source src="assets/videos/iced-latte.mp4" type="video/mp4"></video><figcaption><span class="en">Double Shot Iced Latte with Sweet Cream</span><span class="es">Latte Frío Doble con Crema Dulce</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/vending-event.jpg"><source src="assets/videos/vending-event.mp4" type="video/mp4"></video><figcaption><span class="en">Our First Vending Event</span><span class="es">Nuestro Primer Evento de Venta</span></figcaption></figure><figure class="reel"><video muted controls playsinline preload="metadata" poster="assets/videos/easter-recap.jpg"><source src="assets/videos/easter-recap.mp4" type="video/mp4"></video><figcaption><span class="en">Easter 2026 Recap</span><span class="es">Resumen de Pascua 2026</span></figcaption></figure>
   </div>
 </div></section>
 
@@ -104,7 +99,7 @@
     <figure><img src="assets/strawberry-crinkles.jpg" alt="Strawberry crinkle cookies" ><figcaption><span class="en">Strawberry Crinkles</span><span class="es">Crinkles de Fresa</span></figcaption></figure>
     <figure><img src="assets/event-table.jpg" alt="Destiny Cafe treats on a tiered stand at an event" ><figcaption><span class="en">Events &amp; Celebrations</span><span class="es">Eventos y Celebraciones</span></figcaption></figure>
     <figure><img src="assets/latte.jpg" alt="Latte with heart latte art" ><figcaption><span class="en">Specialty Coffee</span><span class="es">Café de Especialidad</span></figcaption></figure>
-    <figure><img src="assets/winter-menu-flyer.jpg" alt="Destiny Cafe Winter Menu flyer"  style="object-position:top"><figcaption><span class="en">Winter Menu</span><span class="es">Menú de Invierno</span></figcaption></figure>
+    <figure><img src="assets/client-love.jpg" alt="A happy customer's iced latte and strawberry crinkles from Destiny Cafe" style="object-position:top"><figcaption><span class="en">Client Love 💜</span><span class="es">Clientes Felices 💜</span></figcaption></figure>
   </div>
 </div></section>
 
@@ -120,6 +115,11 @@
 </div></section>
 </main>
 
+<div id="flyer-lb" class="lb" role="dialog" aria-modal="true" aria-label="Winter Menu" onclick="if(event.target===this)closeFlyer()">
+  <div class="lb-in"><button type="button" class="lb-x" onclick="closeFlyer()" aria-label="Close">×</button>
+  <img src="assets/winter-menu-flyer-full.jpg" alt="Destiny Cafe Winter Menu flyer">
+  <a class="btn g" href="https://bakesy.shop/b/destiny-cafe-llc" target="_blank" rel="noopener"><span class="en">Pre-Order on Bakesy (Select 11/10)</span><span class="es">Ordene en Bakesy (Seleccione 11/10)</span></a></div>
+</div>
 <footer><div class="w">
   <p><b>Destiny Cafe LLC</b> · Las Vegas, NV · <a href="tel:+17253257583">(725) 325-7583</a> · <a href="mailto:destinycafe7@gmail.com">destinycafe7@gmail.com</a></p>
   <p><a href="https://bakesy.shop/b/destiny-cafe-llc" target="_blank" rel="noopener">Bakesy</a> · <a href="https://www.instagram.com/destinycafe7/" target="_blank" rel="noopener">Instagram @destinycafe7</a></p>
@@ -133,6 +133,9 @@ function setLang(l){document.documentElement.classList.toggle('es',l==='es');doc
  document.getElementById('b-en').classList.toggle('on',l==='en');document.getElementById('b-es').classList.toggle('on',l==='es');
  
  try{localStorage.setItem('dc-lang',l)}catch(e){}}
+function openFlyer(e){if(e)e.preventDefault();document.getElementById('flyer-lb').classList.add('open');document.body.style.overflow='hidden';}
+function closeFlyer(){document.getElementById('flyer-lb').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFlyer();});
 function openChat(){if(window.openDestinyChat)openDestinyChat();else location.href='tel:+17253257583';}
 (function(){var l;try{l=localStorage.getItem('dc-lang')}catch(e){};if(!l&&(navigator.language||'').slice(0,2)==='es')l='es';if(l)setLang(l);})();
 </script>
