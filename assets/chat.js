@@ -27,9 +27,16 @@ var A={
   es:"Solo tenemos los ingredientes que aparecen en el menú (muchos son orgánicos). Para alergias o sin gluten, pregúntenos y los dueños le confirman por texto antes de ordenar — no queremos adivinar."},
  contact:{en:"You can pre-order on <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a>, call <a href='"+TELH+"'>"+TEL+"</a>, email destinycafe7@gmail.com, or place an order request right here.",
   es:"Puede ordenar en <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a>, llamar al <a href='"+TELH+"'>"+TEL+"</a>, escribir a destinycafe7@gmail.com o hacer su pedido aquí mismo."},
- unknown:{en:"Great question! I want to be sure we give you the right answer, so the owners will confirm that by text. Want to leave your name and number, or call "+TEL+"?",
-  es:"¡Buena pregunta! Queremos darle la respuesta correcta, así que los dueños se lo confirman por texto. ¿Desea dejar su nombre y número, o llamar al "+TEL+"?"}};
-var STEPS=[{k:"name",en:"Wonderful! What name should we put the order under?",es:"¡Perfecto! ¿A nombre de quién ponemos el pedido?"},
+ unknown:{en:"I want to make sure you get the exact right answer — the owners can confirm that by text. Would you like to leave your name and number, or call "+TEL+"?",
+  es:"Quiero asegurarme de darle la respuesta exacta — las dueñas se lo pueden confirmar por texto. ¿Desea dejar su nombre y número, o llamar al "+TEL+"?"},
+ howto:{en:"There are 3 easy ways to order:<br>1. Pre-order online on <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a> (for the Winter Menu, pick <b>11/10</b>).<br>2. Call <a href='"+TELH+"'>"+TEL+"</a>.<br>3. Send an order request right here in chat — tap <b>Place an order</b> below or tell me what you'd like to get started.",
+  es:"Hay 3 formas fáciles de ordenar:<br>1. Ordene en línea en <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a> (para el Menú de Invierno, seleccione <b>11/10</b>).<br>2. Llame al <a href='"+TELH+"'>"+TEL+"</a>.<br>3. Envíenos su pedido aquí mismo — toque <b>Hacer un pedido</b> abajo o díganos qué le gustaría ordenar."},
+ cancel:{en:"No problem at all — let us know if you have any menu questions!",es:"No hay problema — avísenos si tiene alguna pregunta sobre el menú."},
+ needName:{en:"What name should we put on the order? (Or type 'cancel' anytime.)",es:"¿A nombre de quién ponemos el pedido? (O escriba 'cancelar' en cualquier momento.)"},
+ needPhone:{en:"Could you share a phone number (with area code) so we can text your confirmation? Or type 'cancel' anytime.",es:"¿Nos puede dar un número de teléfono (con código de área) para enviarle la confirmación por texto? O escriba 'cancelar' en cualquier momento."},
+ resume:{en:"Whenever you're ready to finish your order, just reply to the last question above.",es:"Cuando esté listo para terminar su pedido, solo responda la última pregunta de arriba."},
+ noted:{en:"Got it, I noted: ",es:"Anotado: "}};
+var STEPS=[{k:"name",en:"Sure — we can take your order request right here. What name should we put on the order?",es:"Claro, le tomamos su pedido aquí mismo. ¿A nombre de quién ponemos el pedido?"},
  {k:"phone",en:"What's the best phone number to text you the confirmation?",es:"¿A qué número le enviamos la confirmación por texto?"},
  {k:"items",en:"What would you like (items, sizes, how many)?",es:"¿Qué le gustaría ordenar (productos, tamaños, cantidad)?"},
  {k:"when",en:"Pickup on Tuesday 11/10 (8 AM–12 PM, Farm &amp; Tenaya), or batch delivery? If delivery, which area and preferred day/time?",es:"¿Recogida el martes 11/10 (8 AM–12 PM, Farm y Tenaya) o entrega? Si es entrega, ¿en qué zona y qué día/hora prefiere?"}];
@@ -59,8 +66,11 @@ function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&
 function toggle(){var o=el.win.classList.toggle('open');el.launch.classList.toggle('hide',o);if(o){if(!el.msgs.children.length)add('them',T[L()].hello);setTimeout(function(){el.in.focus()},50);}}
 window.openDestinyChat=function(){if(!el.win.classList.contains('open'))toggle();else el.in.focus();};
 
-function intent(q){q=q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
- if(/order|pedido|ordenar|comprar|reserv|i want|i'd like|quiero|quisiera/.test(q))return'order';
+function norm(q){return q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim();}
+function intent(q){q=norm(q);
+ if(/^(cancel|never ?mind|stop|exit|no thanks|no thank you|cancelar|nada)\b/.test(q))return'cancel';
+ if(/\b(how|where|can i|could i|como|donde|puedo)\b.*\b(order|pedido|ordenar|pre-?order|buy|comprar)|ordering work|order online|se ordena/.test(q))return'howto';
+ if(/place an order|start an order|take my order|make an order|hacer un pedido|i want to order|i'd like to order|id like to order|i want to get|i would like|quiero ordenar|quiero pedir|quisiera|^order\b|^ordenar\b/.test(q))return'order';
  if(/winter|invierno|nov|11\/10|tuesday|martes|pickup|recog|peppermint|menta|focaccia|biscuit|sourdough|masa madre|brownie|farm|tenaya/.test(q))return'winter';
  if(/deliver|entrega|domicilio|summerlin|henderson|strip|fee|cargo|envio/.test(q))return'delivery';
  if(/allerg|alerg|gluten|vegan|dairy|lact|nut|nuez|mani|ingredient/.test(q))return'allergy';
@@ -70,17 +80,30 @@ function intent(q){q=q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g
  if(/phone|call|llam|telefono|bakesy|email|contact|where|donde|address|direccion|hour|horario/.test(q))return'contact';
  if(/^(hi|hello|hey|hola|buenas|buenos)/.test(q))return'hi';
  return'unknown';}
-function handle(v){add('me',esc(v));var l=L();
- if(flow!==null){order[STEPS[flow].k]=v;flow++;
-  if(flow<STEPS.length){reply(STEPS[flow][l]);return;}
-  flow=null;var s=(l==='es'?"<b>Resumen de su pedido:</b>":"<b>Your order request:</b>")+"<br>"+["name","phone","items","when"].map(function(k){return esc(order[k])}).join("<br>");
-  reply(s);submit(order,l);return;}
- var i=intent(v);
- if(i==='order'){flow=0;order={};reply(STEPS[0][l]);return;}
- if(i==='menu'){reply(A.coffee[l]);reply(A.bakery[l],1);return;}
- if(i==='hi'){reply(T[l].hello);return;}
+var CHIPS={};['en','es'].forEach(function(l){T[l].chips.forEach(function(c,i){CHIPS[norm(c)]=['winter','menu','delivery','order'][i];});});
+function isQuestion(v){var q=norm(v);return /\?/.test(q)||/^(how|what|where|when|can|do|does|is|are|who|why|como|que|donde|cuando|cuanto|cual|hay|tienen)\b/.test(q);}
+function answer(i,l){if(i==='menu'){reply(A.coffee[l]);reply(A.bakery[l],1);return;}if(i==='hi'){reply(T[l].hello);return;}reply(A[i][l]);}
+function startOrder(v,l,fromChip){flow=0;order={};
+ if(!fromChip){var rest=v.replace(/^\s*(i want to order|i'd like to order|id like to order|i want to get|i would like|i'd like|quiero ordenar|quiero pedir|quisiera ordenar|quisiera pedir|place an order( for)?|start an order( for)?|order|ordenar)\s*:?\s*/i,'').trim();
+  if(rest&&rest!==v.trim()&&!/^(an? order|un pedido|please|por favor)\.?$/i.test(rest)){order.items=rest;reply(A.noted[l]+esc(rest));}}
+ setTimeout(function(){add('them',STEPS[0][l])},order.items?800:350);}
+function nextStep(l){do{flow++;}while(flow<STEPS.length&&order[STEPS[flow].k]);
+ if(flow<STEPS.length){reply(STEPS[flow][l]);return;}
+ flow=null;var lab=l==='es'?{name:"Nombre",phone:"Teléfono",items:"Pedido",when:"Recogida/Entrega",t:"Resumen de su pedido:"}:{name:"Name",phone:"Phone",items:"Items",when:"Pickup/Delivery",t:"Your order request:"};
+ reply("<b>"+lab.t+"</b><br>"+["name","phone","items","when"].map(function(k){return "<b>"+lab[k]+":</b> "+esc(order[k]||"")}).join("<br>"));submit(order,l);}
+function handle(v){add('me',esc(v));var l=L(),q=norm(v),chip=CHIPS[q],i=chip||intent(v);
+ if(i==='cancel'){flow=null;order={};reply(A.cancel[l]);return;}
+ if(flow!==null){var k=STEPS[flow].k,digits=v.replace(/\D/g,'').length,words=q.split(/\s+/).length;
+  if(chip==='order'||i==='order'){reply(STEPS[flow][l]);return;}
+  var known=i!=='unknown'&&i!=='hi';
+  var faq=chip||(known&&(isQuestion(v)||(words>=3&&k!=='items'&&k!=='when')))||(isQuestion(v)&&(k==='name'||k==='phone')&&digits<7);
+  if(faq){answer(known||chip?i:'unknown',l);setTimeout(function(){add('them',k==='phone'?A.needPhone[l]:A.resume[l])},1000);return;}
+  if(k==='name'&&(digits>0||q.replace(/[^a-z]/g,'').length<2||/^(idk|i don'?t know|no se|no|yes|si|ok|okay|hi|hello|hola|hey|lol|help|ayuda|what|que|huh|test|asdf)\W*$/.test(q))){reply(A.needName[l]);return;}
+  if(k==='phone'&&digits<7){reply(A.needPhone[l]);return;}
+  order[k]=v;nextStep(l);return;}
+ if(i==='order'){startOrder(v,l,!!chip);return;}
  if(i==='unknown'&&CHAT_API_URL){live(v,l);return;}
- reply(A[i][l]);}
+ answer(i,l);}
 function reply(h,extra){setTimeout(function(){add('them',h)},350+(extra?400:0));}
 function submit(o,l){
  var done=l==='es'?"¡Gracias! Los dueños le enviarán un texto para confirmar su pedido, el total y el día. Que Dios le bendiga 💜":"Thank you! The owners will text you to confirm your order, total and day. God bless you 💜";
