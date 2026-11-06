@@ -77,3 +77,32 @@ section{scroll-margin-top:70px}
 .lb-x{position:absolute;top:-6px;right:-6px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;color:var(--plum2);font-size:1.8rem;line-height:1;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3)}
 @media (max-width:820px){nav a{margin-left:10px;font-size:.88rem}.lang{margin-left:10px}.brand span{font-size:1rem}.lb .btn{flex:none}}
 @media (max-width:400px){.brand span{display:none}}
+
+/* On-site Order & Custom Order modal */
+.dc-order-lb .dc-order-in{background:var(--cream);border-radius:22px;padding:22px 18px 18px;max-width:min(560px,96vw);max-height:calc(100vh - 24px);overflow:auto;width:100%;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.dc-order-title{margin:0 28px 6px 0;font-size:1.55rem;color:var(--plum2)}
+.dc-order-sub{margin:0 0 14px;color:#6d5f73;font-size:.95rem}
+.dc-order-form fieldset{border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 12px;background:#fff}
+.dc-order-form legend{font-weight:800;color:var(--plum);padding:0 6px}
+.dc-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.dc-row:last-child{border:0}.dc-row.coffee{grid-template-columns:1fr auto;grid-template-rows:auto auto}
+.dc-row-t{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.dc-row-t b{font-size:.92rem}.dc-row-t span{color:var(--plum);font-weight:800;white-space:nowrap}
+.dc-qty{display:inline-flex;align-items:center;gap:8px}
+.dc-qty button{width:32px;height:32px;border-radius:50%;border:2px solid var(--plum);background:#fff;color:var(--plum);font-weight:800;cursor:pointer}
+.dc-qty span{min-width:18px;text-align:center;font-weight:800}
+.dc-opts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.dc-chip{border:1.5px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.8rem;font-weight:700;background:#faf7f2}
+.dc-chip.on,.dc-chip:has(input:checked){border-color:var(--plum);background:#f3e6f7;color:var(--plum)}
+.dc-chip input{margin-right:4px}
+.dc-opts select{border:1.5px solid var(--line);border-radius:999px;padding:5px 10px;font:700 .8rem Nunito,sans-serif;background:#fff;max-width:100%}
+.dc-order-form input[type=text],.dc-order-form input[type=tel],.dc-order-form input:not([type]),.dc-order-form textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font:1rem Nunito,sans-serif;margin:6px 0;outline-color:var(--plum)}
+.dc-radio{display:block;padding:6px 0;font-weight:700;font-size:.92rem}
+.dc-total-bar{background:#f6eefa;border-radius:12px;padding:12px 14px;font-weight:800;color:var(--plum2);margin:8px 0}
+.dc-pay-note{font-size:.88rem;color:#6d5f73;margin:0 0 12px}
+.dc-submit{width:100%;text-align:center;border:0}
+.dc-alt{text-align:center;font-size:.9rem;margin:10px 0 0}
+.dc-order-status{margin-top:12px;padding:12px;border-radius:12px;font-weight:700}
+.dc-order-status.ok{background:#e7f7ea;color:#1e5b2a}
+.dc-order-status.err{background:#fdecea;color:#8a1f11}
+html.es .dc-order-form .en{display:none!important}
+html:not(.es) .dc-order-form .es{display:none!important}
