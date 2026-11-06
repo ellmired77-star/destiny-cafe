@@ -1,10 +1,12 @@
 /* Destiny Cafe Chat — white-labeled typed chat (EN / ES).
- * Works offline from verified menu facts. When CHAT_API_URL is set (our Cloudflare
- * Worker, e.g. https://contractor-leads.ell-mired77.workers.dev/api/destiny-chat),
- * free-form questions go to the live backend and finished order requests are POSTed
- * there so the owners get a text. Until then it runs in preview mode (no texts sent). */
+ * Works offline from verified menu facts. When DESTINY_CHAT_API_URL is set to
+ * https://never-miss-owner-text.ell-mired77.workers.dev, finished order requests
+ * POST to /order so BOTH owners get a Twilio text. Free-form "unknown" answers stay
+ * local (A.unknown) unless DESTINY_CHAT_REPLY_API_URL is set — never POST unknown
+ * messages to the owner-text Worker root (that path expects an ElevenLabs signature). */
 (function(){
-var CHAT_API_URL = window.DESTINY_CHAT_API_URL || "";   // "" = preview mode
+var CHAT_API_URL = window.DESTINY_CHAT_API_URL || "";   // "" = preview mode (orders not texted)
+var CHAT_REPLY_API_URL = window.DESTINY_CHAT_REPLY_API_URL || ""; // optional free-form reply backend
 var BAKESY="https://bakesy.shop/b/destiny-cafe-llc", TEL="(725) 325-7583", TELH="tel:+17253257583";
 var L=function(){return document.documentElement.classList.contains('es')?'es':'en'};
 var T={
@@ -102,16 +104,25 @@ function handle(v){add('me',esc(v));var l=L(),q=norm(v),chip=CHIPS[q],i=chip||in
   if(k==='phone'&&digits<7){reply(A.needPhone[l]);return;}
   order[k]=v;nextStep(l);return;}
  if(i==='order'){startOrder(v,l,!!chip);return;}
- if(i==='unknown'&&CHAT_API_URL){live(v,l);return;}
+ if(i==='unknown'&&CHAT_REPLY_API_URL){live(v,l);return;}
  answer(i,l);}
 function reply(h,extra){setTimeout(function(){add('them',h)},350+(extra?400:0));}
 function submit(o,l){
- var done=l==='es'?"¡Gracias! Los dueños le enviarán un texto para confirmar su pedido, el total y el día. Que Dios le bendiga 💜":"Thank you! The owners will text you to confirm your order, total and day. God bless you 💜";
+ var sending=l==='es'?"Enviando su pedido…":"Sending your order request…";
+ var done=l==='es'
+  ?"¡Gracias! Acabamos de enviar su pedido por texto a las dueñas — ellas le escribirán enseguida para confirmar su pedido, el total y la hora de recogida o entrega. Que Dios le bendiga 💜"
+  :"Thank you! We just texted your order to the owners — they'll text you shortly to confirm your order, total, and pickup/delivery time. God bless you 💜";
+ var fail=l==='es'
+  ?"No pudimos enviar su pedido por texto ahora. Por favor llame o escriba al <a href='"+TELH+"'>"+TEL+"</a> o ordene en <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a> para que no se pierda."
+  :"We couldn't text your order just now. Please call or text <a href='"+TELH+"'>"+TEL+"</a> or order on <a href='"+BAKESY+"' target='_blank' rel='noopener'>Bakesy</a> so nothing is missed.";
  if(!CHAT_API_URL){console.info('[Destiny Chat] preview mode — would POST to CHAT_API_URL/order:',o);
   reply(done+"<br><small class='dc-note'>"+(l==='es'?"(Vista previa: al publicar, este pedido se enviará por texto a los dueños.)":"(Preview: once published, this request is texted to the owners.)")+"</small>",1);return;}
- fetch(CHAT_API_URL+'/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:l,order:o,page:location.href})})
-  .then(function(r){reply(r.ok?done:A.unknown[l],1)}).catch(function(){reply(A.contact[l],1)});}
-function live(v,l){fetch(CHAT_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:l,message:v,history:history.slice(-12)})})
+ reply(sending);
+ fetch(CHAT_API_URL+'/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:l,order:o,page:location.href,website:''})})
+  .then(function(r){reply(r.ok?done:fail,1)}).catch(function(){reply(fail,1)});}
+function live(v,l){
+ if(!CHAT_REPLY_API_URL){reply(A.unknown[l]);return;}
+ fetch(CHAT_REPLY_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({lang:l,message:v,history:history.slice(-12)})})
  .then(function(r){return r.json()}).then(function(d){add('them',esc(d.reply||'')||A.unknown[l])}).catch(function(){reply(A.unknown[l])});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
 })();
