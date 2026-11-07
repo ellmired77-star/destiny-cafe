@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://ellmired77-star.github.io/destiny-cafe/sitemap.xml
