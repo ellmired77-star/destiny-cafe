@@ -75,10 +75,10 @@ function renderForm(){
  });
  html+='</fieldset>';
  html+='<fieldset><legend><span class="en">Custom Order / Event / Special Request</span><span class="es">Pedido Especial / Evento / Solicitud</span></legend>'+
-  '<textarea id="dc-custom" rows="3" placeholder="e.g. 3 brownie trays for church Friday · Tuesday delivery outside 8–12 · catering"></textarea></fieldset>';
+  '<textarea id="dc-custom" rows="3" placeholder="e.g. 3 brownie trays for a Friday event · catering"></textarea></fieldset>';
  html+='<fieldset><legend><span class="en">Pickup or Delivery</span><span class="es">Recogida o Entrega</span></legend>'+
-  '<label class="dc-radio"><input type="radio" name="fulfill" value="pickup" checked> <span class="en">Pickup Tue Nov 10, 8 AM–12 PM · Farm &amp; Tenaya</span><span class="es">Recogida mar. 10 nov, 8 AM–12 PM · Farm y Tenaya</span></label>'+
-  '<label class="dc-radio"><input type="radio" name="fulfill" value="delivery"> <span class="en">Batch Delivery (LV / NLV / Strip / Summerlin / Henderson)</span><span class="es">Entrega por lote (LV / NLV / Strip / Summerlin / Henderson)</span></label>'+
+  '<label class="dc-radio"><input type="radio" name="fulfill" value="pickup"> <span class="en">Pickup (the cafe will confirm the day, time and place by text)</span><span class="es">Recogida (las dueñas confirman el día, la hora y el lugar por texto)</span></label>'+
+  '<label class="dc-radio"><input type="radio" name="fulfill" value="delivery" checked> <span class="en">Batch Delivery (LV / NLV / Strip / Summerlin / Henderson)</span><span class="es">Entrega por lote (LV / NLV / Strip / Summerlin / Henderson)</span></label>'+
   '<label class="dc-radio"><input type="radio" name="fulfill" value="custom"> <span class="en">Custom Date / Special Delivery Request</span><span class="es">Fecha especial / Entrega especial</span></label>'+
   '<input id="dc-when-extra" placeholder="Area + preferred day/time (if delivery or custom)"></fieldset>';
  html+='<fieldset><legend><span class="en">Your Info</span><span class="es">Sus Datos</span></legend>'+
@@ -127,8 +127,8 @@ function buildItemsSummary(){
 function fulfillWhen(){
  var v=(document.querySelector('input[name="fulfill"]:checked')||{}).value||'pickup';
  var extra=(document.getElementById('dc-when-extra').value||'').trim();
- if(v==='pickup')return 'Pickup Tue Nov 10, 8 AM–12 PM, Farm & Tenaya'+(extra?' · '+extra:'');
- if(v==='delivery')return 'Batch delivery'+(extra?' · '+extra:' · area/time TBD');
+ if(v==='pickup')return 'Pickup — cafe will confirm day, time and place by text'+(extra?' · '+extra:'');
+ if(v==='delivery')return 'Batch delivery'+(extra?' · '+extra:' · area/time not given yet');
  return 'Custom / special delivery request'+(extra?' · '+extra:'');
 }
 function submitOrder(){
