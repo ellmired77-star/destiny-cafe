@@ -135,3 +135,29 @@ html:not(.es) .dc-order-form .es{display:none!important}
 .biz-dl dd{margin:0}
 .biz-dl a{color:var(--plum)}
 @media (max-width:520px){.biz-dl{grid-template-columns:1fr;gap:2px}.biz-dl dd{margin-bottom:10px}}
+
+/* 2026-11-17: icon-only chat button on narrow screens, plus bottom padding so FAQ and footer text are not covered */
+@media (max-width: 520px) {
+  .dc-launch {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+    right: 12px;
+    bottom: 12px;
+  }
+  .dc-launch .dc-lt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  #details { padding-bottom: 96px; }
+  footer { padding-bottom: 96px; }
+}
