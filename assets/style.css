@@ -119,3 +119,19 @@ html:not(.es) .dc-order-form .es{display:none!important}
 .review p{margin:0 0 12px;color:#3d3142;font-size:.98rem}
 .review footer{font-weight:800;color:var(--plum2);font-size:.9rem}
 @media (max-width:820px){.reviews{grid-template-columns:1fr}}
+
+/* 2026-11-17 9:40 PM: business details + FAQ */
+.faq{display:grid;gap:12px;max-width:860px}
+.faq-h{margin:28px 0 12px;color:var(--plum2)}
+.faq-item{padding:0}
+.faq-item summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:800;color:var(--plum2);font-size:1.05rem;position:relative;padding-right:48px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:1.4rem;color:var(--gold)}
+.faq-item[open] summary::after{content:"–"}
+.faq-item p{margin:0;padding:0 22px 18px;color:#4d4153}
+.biz{max-width:860px}
+.biz-dl{display:grid;grid-template-columns:170px 1fr;gap:10px 18px;margin:0}
+.biz-dl dt{font-weight:800;color:var(--plum2)}
+.biz-dl dd{margin:0}
+.biz-dl a{color:var(--plum)}
+@media (max-width:520px){.biz-dl{grid-template-columns:1fr;gap:2px}.biz-dl dd{margin-bottom:10px}}
